@@ -1,6 +1,7 @@
 package com.example.myapplication.data.di
 
 import android.app.Application
+import android.content.Context
 import androidx.room.Room
 import com.example.myapplication.data.db.MainDatabase
 import com.example.myapplication.util.Constant.dbName
@@ -16,7 +17,7 @@ import javax.inject.Singleton
 object MainDataBase {
     @Singleton
     @Provides
-    fun provideDb(@ApplicationContext applicationContext: Application): MainDatabase {
+    fun provideDb(@ApplicationContext applicationContext: Context): MainDatabase {
         return Room.databaseBuilder(
             applicationContext,
             MainDatabase::class.java, dbName

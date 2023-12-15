@@ -3,11 +3,13 @@ plugins {
     alias(libs.plugins.com.android.application)
     alias(libs.plugins.org.jetbrains.kotlin.android)
     alias(libs.plugins.org.jetbrains.kotlin.kapt)
+    alias(libs.plugins.hilt.plugin)
 }
 
 android {
     namespace = "com.example.myapplication"
     compileSdk = 34
+
 
     defaultConfig {
         applicationId = "com.example.myapplication"
