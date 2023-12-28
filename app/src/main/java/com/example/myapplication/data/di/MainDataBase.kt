@@ -22,7 +22,7 @@ object MainDataBase {
         return Room.databaseBuilder(
             applicationContext,
             MainDatabase::class.java, dbName
-        ).allowMainThreadQueries().build()
+        ).build()
     }
 
     @Singleton

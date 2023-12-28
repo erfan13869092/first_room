@@ -7,21 +7,22 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.example.myapplication.data.model.ToDo
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ToDoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(toDo: ToDo)
+    suspend fun insert(toDo: ToDo)
 
     @Query("SELECT * FROM todo")
-    fun getTodo(): List<ToDo>
+    fun getTodo(): Flow<List<ToDo>>
 
     @Update()
-    fun update(toDo: ToDo)
+    suspend fun update(toDo: ToDo)
 
     @Delete
-    fun delete(toDo: ToDo)
+    suspend fun delete(toDo: ToDo)
 
     @Query("DELETE FROM todo")
-    fun deleteAll()
+    suspend fun deleteAll()
 }

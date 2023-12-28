@@ -6,11 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.R
 import com.example.myapplication.data.model.ToDo
 import com.example.myapplication.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class FragmentHome : Fragment() {
@@ -18,14 +23,14 @@ class FragmentHome : Fragment() {
     private val binding get() = _binding!!
 
     private val adapterHome = AdapterHome(delete = {
-         viewModel.deleteTask(it)
-    }, update = {todo->
-        with(addTaskDialog){
-            arguments=Bundle().apply {
-                putParcelable("todo",todo)
+        viewModel.deleteTask(it)
+    }, update = { todo ->
+        with(addTaskDialog) {
+            arguments = Bundle().apply {
+                putParcelable("todo", todo)
             }
         }
-        addTaskDialog.show(parentFragmentManager,null)
+        addTaskDialog.show(parentFragmentManager, null)
     })
     private val addTaskDialog = AddTaskDialogFragment({
         val todo = ToDo(name = it)
@@ -47,6 +52,15 @@ class FragmentHome : Fragment() {
         setRecyclerView()
         onClick()
         getHomeTasks()
+//        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+//            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED){
+//                repeat(90000000) {
+//                    val todo = ToDo(name = "rahim $it")
+//                    viewModel.addTodo(todo)
+//                }
+//            }
+//        }
+
     }
 
     private fun getHomeTasks() {

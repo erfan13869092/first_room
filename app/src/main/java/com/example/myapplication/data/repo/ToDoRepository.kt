@@ -4,15 +4,16 @@ import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Update
 import com.example.myapplication.data.model.ToDo
+import kotlinx.coroutines.flow.Flow
 
 interface ToDoRepository {
-    fun insert(toDo: ToDo)
+    suspend fun insert(toDo: ToDo)
 
-    fun getTodo(): List<ToDo>
+    fun getTodo(): Flow<List<ToDo>>
 
-    fun update(toDo: ToDo)
+    suspend fun update(toDo: ToDo)
 
-    fun delete(toDo: ToDo)
+    suspend fun delete(toDo: ToDo)
 
-    fun deleteAll()
+    suspend fun deleteAll()
 }
