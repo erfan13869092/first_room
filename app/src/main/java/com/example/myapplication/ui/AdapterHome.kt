@@ -16,7 +16,7 @@ class AdapterHome() : RecyclerView.Adapter<AdapterHome.ViewHolder>() {
     inner class ViewHolder(val binding: LayoutAdapterBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(todo: ToDo) {
-
+            binding.checkedTextView.text = todo.name
         }
     }
 

@@ -15,9 +15,13 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FragmentHome : Fragment() {
     private var _binding: FragmentHomeBinding? = null
-    private val binding get () = _binding!!
+    private val binding get() = _binding!!
 
     private val adapterHome = AdapterHome()
+    private val addTaskDialog = AddTaskDialogFragment {
+        val todo = ToDo(name = it)
+        viewModel.addTodo(todo)
+    }
     private val viewModel: HomeViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,13 +35,21 @@ class FragmentHome : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setRecyclerView()
         onClick()
+        getHomeTasks()
+    }
 
+    private fun getHomeTasks() {
+        viewModel.taskLivaData.observe(viewLifecycleOwner) {
+            it?.let {
+                adapterHome.task = ArrayList(it)
+            }
+        }
     }
 
     private fun onClick() {
         binding.flbtnFragmentHomeAddTask.setOnClickListener {
-            val todo=ToDo(name = "rahim")
-            viewModel.addTodo(todo)
+            addTaskDialog.show(parentFragmentManager, null)
+
         }
     }
 

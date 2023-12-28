@@ -11,6 +11,5 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 abstract class RepositoryDi {
     @Binds
-
     abstract fun provideRepositoryToDo(toDoRepositoryImpl: ToDoRepositoryImpl): ToDoRepository
 }
