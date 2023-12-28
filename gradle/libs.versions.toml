@@ -34,6 +34,7 @@ com-android-application = { id = "com.android.application", version.ref = "agp" 
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin-android" }
 org-jetbrains-kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "org-jetbrains-kotlin-android" }
 hilt-plugin = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+#parcelize-plugin = { id = "org.jetbrains.kotlin.plugin.parcelize" , version.ref="org-jetbrains-kotlin-android"}
 
 [bundles]
 room = ["room-runtime", "room-coroutine"]

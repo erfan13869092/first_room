@@ -24,8 +24,16 @@ class HomeViewModel @Inject constructor(val toDoRepository: ToDoRepository) : Vi
 
     fun addTodo(todo: ToDo) {
         toDoRepository.insert(todo)
+        getTasks()
     }
-
+    fun deleteTask(todo: ToDo) {
+        toDoRepository.delete(todo)
+        getTasks()
+    }
+    fun updateTask(todo: ToDo) {
+        toDoRepository.update(todo)
+        getTasks()
+    }
     fun getTasks() {
         _taskMutableLivaData.value = toDoRepository.getTodo()
     }

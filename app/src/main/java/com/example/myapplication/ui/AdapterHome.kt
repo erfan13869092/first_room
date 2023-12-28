@@ -6,7 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.data.model.ToDo
 import com.example.myapplication.databinding.LayoutAdapterBinding
 
-class AdapterHome() : RecyclerView.Adapter<AdapterHome.ViewHolder>() {
+class AdapterHome(
+    val delete: (ToDo) -> Unit,
+    val update: (ToDo) -> Unit
+) : RecyclerView.Adapter<AdapterHome.ViewHolder>() {
     var task = ArrayList<ToDo>()
         set(value) {
             field = value
@@ -17,6 +20,13 @@ class AdapterHome() : RecyclerView.Adapter<AdapterHome.ViewHolder>() {
         RecyclerView.ViewHolder(binding.root) {
         fun bind(todo: ToDo) {
             binding.checkedTextView.text = todo.name
+            itemView.setOnLongClickListener {
+                delete(todo)
+                false
+            }
+            itemView.setOnClickListener {
+                update(todo)
+            }
         }
     }
 

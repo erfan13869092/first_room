@@ -17,11 +17,22 @@ class FragmentHome : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private val adapterHome = AdapterHome()
-    private val addTaskDialog = AddTaskDialogFragment {
+    private val adapterHome = AdapterHome(delete = {
+         viewModel.deleteTask(it)
+    }, update = {todo->
+        with(addTaskDialog){
+            arguments=Bundle().apply {
+                putParcelable("todo",todo)
+            }
+        }
+        addTaskDialog.show(parentFragmentManager,null)
+    })
+    private val addTaskDialog = AddTaskDialogFragment({
         val todo = ToDo(name = it)
         viewModel.addTodo(todo)
-    }
+    }, update = {
+        viewModel.updateTask(it)
+    })
     private val viewModel: HomeViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
